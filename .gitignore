@@ -1,0 +1,46 @@
+# Node artifacts
+/node_modules
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/.angular
+
+# Dependency directories
+/bower_components
+
+# Angular-specific files
+/*.d.ts
+/*.lock
+/*.log
+/*.swp
+/*.swo
+/*.swn
+/*.sqlite
+/*.js.map
+/*.css.map
+/*.tsbuildinfo
+
+# Tests
+/karma.conf.js
+/protractor.conf.js
+/*.test.ts
+/*.spec.ts
+/e2e/
+
+# IDE-specific files
+/.idea
+/.vscode
+*.iml
+
+# Environment variables
+/.env
+/.env.*
+
+# Build files
+/build
+
+# Misc
+.DS_Store
+Thumbs.db

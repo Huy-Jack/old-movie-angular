@@ -1,0 +1,51 @@
+<!-- signup.component.html -->
+
+<div class="flex justify-content-center align-items-center h-screen w-full bg-img">
+  <div class="card flex flex-column align-items-center justify-content-center">
+    <h1>Sign Up</h1>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="flex flex-column">
+      <div class="field">
+        <label for="userName">Username</label>
+        <input class="w-full" id="userName" type="text" formControlName="userName" pInputText />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input class="w-full" id="password" type="password" formControlName="password" pPassword />
+      </div>
+
+      <div class="field">
+        <label for="firstName">First Name</label>
+        <input class="w-full" id="firstName" type="text" formControlName="firstName" pInputText />
+      </div>
+
+      <div class="field">
+        <label for="lastName">Last Name</label>
+        <input class="w-full" id="lastName" type="text" formControlName="lastName" pInputText />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input class="w-full" id="email" type="email" formControlName="email" pInputText />
+      </div>
+
+      <div class="field">
+        <label for="phoneNumber">Phone Number</label>
+        <input
+          class="w-full"
+          id="phoneNumber"
+          type="tel"
+          formControlName="phoneNumber"
+          pInputText
+        />
+      </div>
+
+      <div class="field">
+        <label for="dob" class="block">Date of Birth</label>
+        <p-calendar styleClass="w-full" [showIcon]="true" formControlName="dob"></p-calendar>
+      </div>
+
+      <button type="submit" pButton label="Sign Up"></button>
+    </form>
+  </div>
+</div>
