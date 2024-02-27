@@ -7,13 +7,13 @@ import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-sign-in',
   standalone: true,
   imports: [CommonModule, RouterOutlet, FormsModule, InputTextModule, PasswordModule, ButtonModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  templateUrl: './sign-in.component.html',
+  styleUrl: './sign-in.component.scss',
 })
-export class LoginComponent {
+export class SignInComponent {
   username: string = ''
   password: string = ''
 

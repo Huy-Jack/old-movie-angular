@@ -11,7 +11,14 @@
 
       <div class="field">
         <label for="password">Password</label>
-        <input class="w-full" id="password" type="password" formControlName="password" pPassword />
+        <input
+          class="w-full"
+          id="password"
+          type="password"
+          formControlName="password"
+          pPassword
+          [feedback]="false"
+        />
       </div>
 
       <div class="field">
