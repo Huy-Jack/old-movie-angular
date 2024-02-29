@@ -1,28 +1,33 @@
 <div class="flex justify-content-center align-items-center h-screen w-full bg-img">
   <div class="card flex flex-column align-items-center justify-content-center">
     <h1>Login</h1>
-    <form class="flex flex-column" (ngSubmit)="login()">
+    <form (formValueChange)="form = $event" class="flex flex-column" (ngSubmit)="login()">
       <div class="field">
-        <label for="username">Username</label>
+        <label for="username">Username <span class="text-red-500">*</span></label>
         <input
           type="text"
           id="username"
           class="w-full"
           name="username"
+          ngModel
+          required
+          email
           pInputText
-          [(ngModel)]="username"
+          autoValidate
         />
       </div>
       <div class="field">
-        <label for="password">Password</label>
+        <label for="password">Password <span class="text-red-500">*</span></label>
         <input
           type="password"
           id="password"
           class="w-full"
           name="password"
+          ngModel
+          autoValidate
+          required
           pPassword
           [feedback]="false"
-          [(ngModel)]="password"
         />
       </div>
       <button type="submit" pButton label="Login"></button>

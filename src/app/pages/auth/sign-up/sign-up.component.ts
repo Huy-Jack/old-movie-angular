@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
@@ -11,12 +11,13 @@ import { ButtonModule } from 'primeng/button'
 import { CalendarModule } from 'primeng/calendar'
 import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
+import { AutoValidateDirective } from '@directives/auto-validate.directive'
+import { FormDirective } from '@directives/form.directive'
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
@@ -24,31 +25,32 @@ import { PasswordModule } from 'primeng/password'
     PasswordModule,
     ButtonModule,
     CalendarModule,
+    AutoValidateDirective,
+    FormDirective,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent {
-  signupForm: FormGroup
+  signupForm!: FormGroup
 
-  constructor(private fb: FormBuilder) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.signupForm = this.fb.group({
-      userName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', Validators.required],
-      dob: ['', Validators.required],
-      password: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-    })
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
-    if (this.signupForm.valid) {
-      // Handle user registration logic here
-      console.log('User registered:', this.signupForm.value)
-    }
+    const { controls, value, valid } = this.signupForm
+    console.log(controls)
+    if (!valid) return this.markDirtyForm(controls)
+    console.log('Signed Up in with:', value)
+  }
+
+  private markDirtyForm(controls: { [p: string]: AbstractControl<any, any> }): void {
+    Object.values(controls).forEach((control) => {
+      if (control.invalid) {
+        control.markAsDirty()
+        control.updateValueAndValidity({ onlySelf: true })
+      }
+    })
   }
 }

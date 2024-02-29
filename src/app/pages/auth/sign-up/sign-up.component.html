@@ -3,10 +3,10 @@
 <div class="flex justify-content-center align-items-center h-screen w-full bg-img">
   <div class="card flex flex-column align-items-center justify-content-center">
     <h1>Sign Up</h1>
-    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="flex flex-column">
+    <form (formValueChange)="signupForm = $event" (ngSubmit)="onSubmit()" class="flex flex-column">
       <div class="field">
         <label for="userName">Username</label>
-        <input class="w-full" id="userName" type="text" formControlName="userName" pInputText />
+        <input class="w-full" id="userName" type="text" name="userName" ngModel required autoValidate pInputText />
       </div>
 
       <div class="field">
@@ -14,26 +14,29 @@
         <input
           class="w-full"
           id="password"
+          ngModel
+          required
           type="password"
-          formControlName="password"
+          name="password"
           pPassword
+          autoValidate
           [feedback]="false"
         />
       </div>
 
       <div class="field">
         <label for="firstName">First Name</label>
-        <input class="w-full" id="firstName" type="text" formControlName="firstName" pInputText />
+        <input class="w-full" id="firstName" type="text" name="firstName" ngModel required autoValidate pInputText />
       </div>
 
       <div class="field">
         <label for="lastName">Last Name</label>
-        <input class="w-full" id="lastName" type="text" formControlName="lastName" pInputText />
+        <input class="w-full" id="lastName" type="text" name="lastName" ngModel required autoValidate pInputText />
       </div>
 
       <div class="field">
         <label for="email">Email</label>
-        <input class="w-full" id="email" type="email" formControlName="email" pInputText />
+        <input class="w-full" id="email" type="email" name="email" ngModel required email autoValidate pInputText />
       </div>
 
       <div class="field">
@@ -42,14 +45,17 @@
           class="w-full"
           id="phoneNumber"
           type="tel"
-          formControlName="phoneNumber"
+          ngModel
+          required
+          autoValidate
+          name="phoneNumber"
           pInputText
         />
       </div>
 
       <div class="field">
         <label for="dob" class="block">Date of Birth</label>
-        <p-calendar styleClass="w-full" [showIcon]="true" formControlName="dob"></p-calendar>
+        <p-calendar styleClass="w-full" [showIcon]="true" name="dob" ngModel autoValidate [required]="true"></p-calendar>
       </div>
 
       <button type="submit" pButton label="Sign Up"></button>
