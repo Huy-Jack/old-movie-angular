@@ -17,7 +17,6 @@ export class AutoValidateDirective implements OnInit {
     this.errorMessageElement = document.createElement('small')
     this.errorMessageElement.classList.add('p-error')
     this.control.statusChanges?.subscribe(() => {
-      console.log(123)
       this.updateErrorMessage()
     })
     this.control.control?.setValidators(this.customValidation)
@@ -27,7 +26,6 @@ export class AutoValidateDirective implements OnInit {
     this.errorMessageElement.innerHTML = ''
     if (this.control.invalid && this.control.dirty) {
       const errors = Object.keys(this.control.errors ?? {})
-      console.log(errors)
       for (const error of errors) {
         this.errorMessageElement.innerHTML += this.getErrorMessage(error)
       }
@@ -40,7 +38,6 @@ export class AutoValidateDirective implements OnInit {
   }
 
   private getErrorMessage(error: string): string {
-    console.log(validateMessage[error])
     return validateMessage[error]
   }
 }

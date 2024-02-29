@@ -23,6 +23,21 @@
           [feedback]="false"
         />
       </div>
+      <div class="field">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          class="w-full"
+          id="confirmPassword"
+          ngModel
+          required
+          type="password"
+          name="confirmPassword"
+          pPassword
+          [customValidation]="[passwordValidation]"
+          autoValidate
+          [feedback]="false"
+        />
+      </div>
 
       <div class="field">
         <label for="firstName">First Name</label>
