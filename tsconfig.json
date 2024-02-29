@@ -20,7 +20,16 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": ["ES2022", "dom"]
+    "lib": ["ES2022", "dom"],
+    "baseUrl": "./src",
+    "paths": {
+      "@layout/*": ["app/layout/*"],
+      "@pages/*": ["app/pages/*"],
+      "@interfaces/*": ["app/interfaces/*"],
+      "@services/*": ["app/services/*"],
+      "@directives/*": ["app/directives/*"],
+      "@constants/*": ["app/constants/*"],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

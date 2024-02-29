@@ -43,7 +43,7 @@ const defaultAuthGuardOptions = (): AuthGuardOptions => ({
 export const authGuard = (options: AuthGuardOptions = defaultAuthGuardOptions()): CanMatchFn => {
   return (_: Route, segments: UrlSegment[]) => {
     const router = inject(Router);
-    const authService = inject(AuthService);
+    const authService:AuthService = inject(AuthService);
 
     if (options.requiresAuthentication === authService.isAuthenticated) {
       return true;
