@@ -3,5 +3,6 @@ export const validateMessage: { [key: string]: string } = {
   minlength: 'The input is too short.',
   email: 'Please enter a valid email address',
   rmfError: 'Please do not start with RMF',
+  confirmPassword: 'Password not match!',
   // Add more error messages as needed
-};
+}
