@@ -14,6 +14,8 @@ import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
 import { AutoValidateDirective } from '@directives/auto-validate.directive'
 import { FormDirective } from '@directives/form.directive'
+import { AuthService } from '@services/auth/auth.service'
+import { SignUpBody } from '@interfaces/auth.interface'
 
 @Component({
   selector: 'app-sign-up',
@@ -35,14 +37,16 @@ import { FormDirective } from '@directives/form.directive'
 export class SignUpComponent {
   signupForm!: FormGroup
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 
   onSubmit() {
     const { controls, value, valid } = this.signupForm
     if (!valid) return this.markDirtyForm(controls)
-    console.log('Signed Up in with:', value)
+    const { userName, password, firstName, lastName, email, phoneNumber, dob } = value
+    const body: SignUpBody = { userName, password, firstName, lastName, email, phoneNumber, dob }
+    this.authService.signup(body)
   }
   passwordValidation: ValidatorFn = (control: AbstractControl) => {
     const parentControl = control.parent

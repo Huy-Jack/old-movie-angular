@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { Router } from '@angular/router'
+import { AuthRes, SignUpBody } from '@interfaces/auth.interface'
 import { BehaviorSubject } from 'rxjs'
 
 @Injectable({
@@ -11,7 +14,31 @@ export class AuthService {
     return this.isAuthenticated$.getValue()
   }
 
-  login(username: string, password: string): void {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
-  logout(): void {}
+  signin(username: string, password: string) {
+    const url = 'api/auth/signin'
+    const body = { username, password }
+    this.http.post<AuthRes>(url, body).subscribe((res) => {
+      localStorage.setItem('token', res.access_token)
+      this.router.navigateByUrl('/')
+    })
+  }
+
+  signup(body: SignUpBody) {
+    const url = 'api/auth/signup'
+    return this.http.post<AuthRes>(url, body).subscribe((res) => {
+      this.router.navigateByUrl('/auth/sign-in')
+    })
+  }
+  signout() {
+    localStorage.removeItem('token')
+    this.router.navigateByUrl('/auth/sign-in')
+  }
+  getToken() {
+    localStorage.getItem('token')
+  }
 }

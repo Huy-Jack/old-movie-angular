@@ -1,14 +1,14 @@
-import { inject } from '@angular/core';
-import { CanMatchFn, Route, Router, UrlSegment } from '@angular/router';
-import { AuthService } from '@lib/services';
+import { inject } from '@angular/core'
+import { CanMatchFn, Route, Router, UrlSegment } from '@angular/router'
+import { AuthService } from '@services/auth/auth.service'
 
 type AuthGuardOptions = {
-  requiresAuthentication: boolean;
-};
+  requiresAuthentication: boolean
+}
 
 const defaultAuthGuardOptions = (): AuthGuardOptions => ({
   requiresAuthentication: true,
-});
+})
 
 /**
  * Guard that allows or blocks the navigation based on the user's authentication status.
@@ -42,19 +42,19 @@ const defaultAuthGuardOptions = (): AuthGuardOptions => ({
  */
 export const authGuard = (options: AuthGuardOptions = defaultAuthGuardOptions()): CanMatchFn => {
   return (_: Route, segments: UrlSegment[]) => {
-    const router = inject(Router);
-    const authService:AuthService = inject(AuthService);
+    const router = inject(Router)
+    const authService: AuthService = inject(AuthService)
 
     if (options.requiresAuthentication === authService.isAuthenticated) {
-      return true;
+      return true
     }
 
     return options.requiresAuthentication
-      ? router.createUrlTree(['/auth/login'], {
+      ? router.createUrlTree(['/auth/sign-in'], {
           queryParams: {
             returnUrl: segments.map((s) => s.path).join('/'),
           },
         })
-      : router.createUrlTree(['/']);
-  };
-};
+      : router.createUrlTree(['/'])
+  }
+}

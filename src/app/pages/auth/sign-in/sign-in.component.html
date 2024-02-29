@@ -1,7 +1,7 @@
 <div class="flex justify-content-center align-items-center h-screen w-full bg-img">
   <div class="card flex flex-column align-items-center justify-content-center">
     <h1>Login</h1>
-    <form (formValueChange)="form = $event" class="flex flex-column" (ngSubmit)="login()">
+    <form (formValueChange)="form = $event" class="flex flex-column" (ngSubmit)="signin()">
       <div class="field">
         <label for="username">Username <span class="text-red-500">*</span></label>
         <input
@@ -11,7 +11,6 @@
           name="username"
           ngModel
           required
-          email
           pInputText
           autoValidate
         />

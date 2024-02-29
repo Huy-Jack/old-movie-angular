@@ -1,19 +1,21 @@
 import { Routes } from '@angular/router'
-import { SignInComponent } from './pages/auth/sign-in/sign-in.component'
-import { SignUpComponent } from './pages/auth/sign-up/sign-up.component'
+import { authGuard } from './guards'
 import { HomeComponent } from './pages/home/home.component'
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/auth/sign-in', pathMatch: 'full' },
   {
-    path: 'auth/sign-in',
-    title: 'Sign In',
-    component: SignInComponent,
+    path: '',
+    title: 'Home',
+    loadComponent: async () => (await import('./pages/home/home.component')).HomeComponent,
+    // canMatch: [authGuard()],
   },
   {
-    path: 'auth/sign-up',
-    title: 'Sign Up',
-    component: SignUpComponent,
+    path: 'auth',
+    loadChildren: async () => (await import('./pages/auth/index')).routes,
+    // canMatch: [authGuard({ requiresAuthentication: false })],
   },
-  { path: 'home', component: HomeComponent },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ]

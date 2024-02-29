@@ -6,6 +6,7 @@ import { InputTextModule } from 'primeng/inputtext'
 import { PasswordModule } from 'primeng/password'
 import { AutoValidateDirective } from '@directives/auto-validate.directive'
 import { FormDirective } from '@directives/form.directive'
+import { AuthService } from '@services/auth/auth.service'
 @Component({
   selector: 'app-sign-in',
   standalone: true,
@@ -22,13 +23,16 @@ import { FormDirective } from '@directives/form.directive'
   styleUrl: './sign-in.component.scss',
 })
 export class SignInComponent {
-  form!: FormGroup
+  form: FormGroup
 
-  login() {
+  constructor(private authService: AuthService) {}
+
+  signin() {
     // Your login logic here
     const { controls, value, valid } = this.form
     if (!valid) return this.markDirtyForm(controls)
-    console.log('Logging in with:', value)
+    const { username, password } = value
+    this.authService.signin(username, password)
   }
 
   private markDirtyForm(controls: { [p: string]: AbstractControl<any, any> }): void {
