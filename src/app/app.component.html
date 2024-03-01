@@ -1,14 +1,12 @@
 <!-- app.component.html -->
 
-<div [hidden]="loading$ | async">
-  <div *ngIf="isAuthenticated$ | async; else notAuthorized">
-    <router-outlet />
-  </div>
-
-  <ng-template #notAuthorized>
-    <router-outlet></router-outlet>
-  </ng-template>
+<div *ngIf="isAuthenticated$ | async; else notAuthorized">
+  <router-outlet />
 </div>
+
+<ng-template #notAuthorized>
+  <router-outlet></router-outlet>
+</ng-template>
 
 <!-- Toast message -->
 <p-toast></p-toast>
