@@ -1,0 +1,1 @@
+import{d as n}from"./chunk-TMC7WMLO.js";var t=[{path:"sign-in",title:"Sign In",loadComponent:()=>n(void 0,null,function*(){return(yield import("./chunk-6JK627MS.js")).SignInComponent})},{path:"sign-up",title:"Sign Up",loadComponent:()=>n(void 0,null,function*(){return(yield import("./chunk-CIO4ZW2O.js")).SignUpComponent})}];export{t as routes};
