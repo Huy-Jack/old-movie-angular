@@ -1,15 +1,28 @@
+import { provideHttpClient, withInterceptors } from '@angular/common/http'
 import { ApplicationConfig, importProvidersFrom } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { provideRouter } from '@angular/router'
-import { provideHttpClient, withInterceptors } from '@angular/common/http'
-
+import { MessageService } from 'primeng/api'
 import { routes } from './app.routes'
-import { jwtInterceptor, serverErrorInterceptor } from './interceptors'
+import {
+  jwtInterceptor,
+  loadingInterceptor,
+  serverErrorInterceptor,
+  toastInterceptor,
+} from './interceptors'
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    MessageService,
     provideRouter(routes),
     importProvidersFrom(BrowserAnimationsModule),
-    provideHttpClient(withInterceptors([serverErrorInterceptor, jwtInterceptor])),
+    provideHttpClient(
+      withInterceptors([
+        serverErrorInterceptor,
+        jwtInterceptor,
+        loadingInterceptor,
+        toastInterceptor,
+      ]),
+    ),
   ],
 }
