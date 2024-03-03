@@ -1,0 +1,81 @@
+<div class="h-5rem flex align-items-center">
+  <a class="cursor-pointer">
+    <i class="pi pi-angle-left" style="font-size: 2rem"></i>
+  </a>
+  <h3>Movie Name</h3>
+</div>
+<div class="w-full h-5rem bg-gray-100 flex align-items-center px-5 gap-3">
+  @for (item of showTimeLists; track item; let index = $index) {
+    <a
+      (click)="showTimingsSelected = index"
+      [ngClass]="
+        showTimingsSelected === index ? 'bg-green-300 text-white' : 'border-1 text-green-500'
+      "
+      class="flex flex-column h-3rem justify-content-center px-5 border-round cursor-pointer"
+    >
+      <p class="text-sm">{{ item.time }}</p>
+      <p class="text-sm">{{ item.type }}</p>
+    </a>
+  }
+</div>
+<div class="h-30rem mt-8 mx-auto sheet_container p-2 mx-5">
+  <div class="flex h-3rem gap-5">
+    <div class="flex gap-2">
+      <div class="h-1rem w-1rem border-1 border-green-300"></div>
+      <p class="text-sm">Available</p>
+    </div>
+    <div class="flex gap-2">
+      <div class="h-1rem w-1rem bg-green-300"></div>
+      <p class="text-sm">Selected</p>
+    </div>
+    <div class="flex gap-2">
+      <div class="h-1rem w-1rem bg-gray-300"></div>
+      <p class="text-sm">Sold</p>
+    </div>
+  </div>
+  <div class="grid flex justify-content-center">
+    <div class="col-6 flex flex-wrap w-full h-full gap-2">
+      @for (sheet of sheets; track sheet; let index = $index) {
+        <button class="bg-white w-3rem h-3rem border-1 border-green-300">
+          <p class="text-xs text-green">{{ index + 1 }}</p>
+        </button>
+      }
+      <div class="mx-auto flex flex-column">
+        <svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">
+          <defs>
+            <filter id="balanced-shadow" x="0" y="0" width="150%" height="150%">
+              <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="rgba(0, 0, 0, 0.5)" />
+            </filter>
+          </defs>
+          <text
+            x="50%"
+            y="40%"
+            font-family="Arial"
+            font-size="13"
+            text-anchor="middle"
+            alignment-baseline="middle"
+          >
+            Screen
+          </text>
+          <path
+            d="M10 80 Q 150 150 290 80"
+            stroke="black"
+            stroke-width="5"
+            fill="transparent"
+            filter="url(#balanced-shadow)"
+          />
+          <text
+            x="50%"
+            y="70%"
+            font-family="Arial"
+            font-size="13"
+            text-anchor="middle"
+            alignment-baseline="middle"
+          >
+            All eyes this way please!
+          </text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>

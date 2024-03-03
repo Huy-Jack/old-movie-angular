@@ -15,6 +15,10 @@ export const routes: Routes = [
     // canMatch: [authGuard({ requiresAuthentication: false })],
   },
   {
+    path: 'booking',
+    loadComponent: async () => (await import('./pages/booking/booking.component')).BookingComponent,
+  },
+  {
     path: '**',
     redirectTo: '',
   },
