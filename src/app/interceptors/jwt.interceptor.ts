@@ -18,7 +18,7 @@ export const jwtInterceptor: HttpInterceptorFn = (request, next) => {
   if (isRequestAuthorized) {
     const clonedRequest = request.clone({
       setHeaders: {
-        Authorization: `Bearer ${authService.getToken()}`,
+        Authorization: authService.getToken(),
       },
     })
 

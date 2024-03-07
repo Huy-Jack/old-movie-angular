@@ -38,7 +38,12 @@ export class AuthService {
     localStorage.removeItem('token')
     this.router.navigateByUrl('/auth/sign-in')
   }
+
+  autoLogin(): void {
+    const token = this.getToken()
+    this.isAuthenticated$.next(!!token)
+  }
   getToken() {
-    localStorage.getItem('token')
+    return localStorage.getItem('token') ?? ''
   }
 }

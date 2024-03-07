@@ -5,7 +5,7 @@
   <h3>Movie Name</h3>
 </div>
 <div class="w-full h-5rem bg-gray-100 flex align-items-center px-5 gap-3">
-  @for (item of showTimeLists; track item; let index = $index) {
+  @for (item of showTime$ | async; track item; let index = $index) {
     <a
       (click)="showTimingsSelected = index"
       [ngClass]="
@@ -13,8 +13,8 @@
       "
       class="flex flex-column h-3rem justify-content-center px-5 border-round cursor-pointer"
     >
-      <p class="text-sm">{{ item.time }}</p>
-      <p class="text-sm">{{ item.type }}</p>
+      <p class="text-sm">{{ item.start }}</p>
+      <p class="text-sm">{{ item.movieId }}</p>
     </a>
   }
 </div>

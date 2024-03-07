@@ -29,6 +29,7 @@
       "@services/*": ["app/services/*"],
       "@directives/*": ["app/directives/*"],
       "@constants/*": ["app/constants/*"],
+      "@environments/*": ["environments/*"],
     }
   },
   "angularCompilerOptions": {
