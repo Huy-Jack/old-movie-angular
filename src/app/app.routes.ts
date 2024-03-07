@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router'
-import { authGuard } from './guards'
-import { HomeComponent } from './pages/home/home.component'
 
 export const routes: Routes = [
   {
@@ -15,7 +13,7 @@ export const routes: Routes = [
     // canMatch: [authGuard({ requiresAuthentication: false })],
   },
   {
-    path: 'booking',
+    path: 'booking/:movieId',
     loadComponent: async () => (await import('./pages/booking/booking.component')).BookingComponent,
   },
   {
