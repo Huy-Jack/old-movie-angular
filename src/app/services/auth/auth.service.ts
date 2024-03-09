@@ -1,19 +1,20 @@
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
+import { Injectable, signal, WritableSignal } from '@angular/core'
 import { Router } from '@angular/router'
 import { AuthRes, SignUpBody } from '@interfaces/auth.interface'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, tap } from 'rxjs'
+import { User } from '@interfaces/user.interface'
+
+const defaultUser: User = {
+  token: '',
+  userInfo: {},
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  isAuthenticated$ = new BehaviorSubject<boolean>(false)
-
-  get isAuthenticated(): boolean {
-    return this.isAuthenticated$.getValue()
-  }
-
+  public user: WritableSignal<User> = signal<User>(defaultUser)
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -22,10 +23,17 @@ export class AuthService {
   signin(username: string, password: string) {
     const url = 'api/auth/signin'
     const body = { username, password }
-    this.http.post<AuthRes>(url, body).subscribe((res) => {
-      localStorage.setItem('token', res.access_token)
-      // this.router.navigateByUrl('/') TODO: open this later
-    })
+    this.http
+      .post<AuthRes>(url, body)
+      .pipe(
+        tap((res) => {
+          localStorage.setItem('token', res.access_token)
+          this.user.set({ token: res.access_token, userInfo: {} })
+        }),
+      )
+      .subscribe(() => {
+        this.router.navigateByUrl('/')
+      })
   }
 
   signup(body: SignUpBody) {
@@ -36,13 +44,13 @@ export class AuthService {
   }
   signout() {
     localStorage.removeItem('token')
-    this.isAuthenticated$.next(false)
+    this.user.set(defaultUser)
     this.router.navigateByUrl('/auth/sign-in')
   }
 
   autoLogin(): void {
     const token = this.getToken()
-    this.isAuthenticated$.next(!!token)
+    this.user.set({ token, userInfo: {} })
   }
   getToken() {
     return localStorage.getItem('token') ?? ''

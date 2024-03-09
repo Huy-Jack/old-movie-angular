@@ -12,18 +12,14 @@ import { AuthService } from '@services/auth/auth.service'
  */
 export const jwtInterceptor: HttpInterceptorFn = (request, next) => {
   const authService = inject(AuthService)
-
-  const isRequestAuthorized = authService.isAuthenticated
-
-  if (isRequestAuthorized) {
+  const user = authService.user()
+  if (user.token) {
     const clonedRequest = request.clone({
       setHeaders: {
         Authorization: authService.getToken(),
       },
     })
-
     return next(clonedRequest)
   }
-
   return next(request)
 }

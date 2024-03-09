@@ -14,10 +14,11 @@ import { AuthService } from './services/auth/auth.service'
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  isAuthenticated$ = inject(AuthService).isAuthenticated$
-  loading$ = inject(LoadingService).loading$
-
   private readonly authService: AuthService = inject(AuthService)
+
+  loading$ = inject(LoadingService).loading$
+  user = this.authService.user()
+
   ngOnInit() {
     this.authService.autoLogin()
   }

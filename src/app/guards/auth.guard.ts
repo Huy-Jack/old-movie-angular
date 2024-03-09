@@ -44,8 +44,7 @@ export const authGuard = (options: AuthGuardOptions = defaultAuthGuardOptions())
   return (_: Route, segments: UrlSegment[]) => {
     const router = inject(Router)
     const authService: AuthService = inject(AuthService)
-
-    if (options.requiresAuthentication === authService.isAuthenticated) {
+    if (authService.user().token) {
       return true
     }
 
