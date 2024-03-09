@@ -1,12 +1,12 @@
 import { Component } from '@angular/core'
-import { AbstractControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { AbstractControl, FormGroup, FormsModule } from '@angular/forms'
 import { RouterOutlet } from '@angular/router'
-import { ButtonModule } from 'primeng/button'
-import { InputTextModule } from 'primeng/inputtext'
-import { PasswordModule } from 'primeng/password'
 import { AutoValidateDirective } from '@directives/auto-validate.directive'
 import { FormDirective } from '@directives/form.directive'
 import { AuthService } from '@services/auth/auth.service'
+import { ButtonModule } from 'primeng/button'
+import { InputTextModule } from 'primeng/inputtext'
+import { PasswordModule } from 'primeng/password'
 @Component({
   selector: 'app-sign-in',
   standalone: true,

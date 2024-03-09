@@ -17,6 +17,11 @@ export const routes: Routes = [
     loadComponent: async () => (await import('./pages/booking/booking.component')).BookingComponent,
   },
   {
+    path: 'detail',
+    loadComponent: async () =>
+      (await import('./pages/movie-detail/movie-detail.component')).MovieDetailComponent,
+  },
+  {
     path: '**',
     redirectTo: '',
   },

@@ -1,0 +1,44 @@
+<section class="flex justify-content-center">
+  <div class="w-10 border-round flex">
+    <div>
+      <img [src]="movie?.poster" class="w-30rem" />
+    </div>
+
+    <div class="p-5 line-height-3">
+      <h1>{{ movie?.title }}</h1>
+      <div><b>Rating:</b> {{ movie?.rating }}</div>
+      <hr />
+      <div><b>Genre:</b> {{ movie?.genre }}</div>
+      <div><b>Release Date:</b> {{ getFormattedReleaseDate(movie?.releaseDate) }}</div>
+      <div><b>Description:</b> {{ movie?.description }}</div>
+
+      @if (movie?.ongoing) {
+        <div class="flex flex-wrap gap-2 mt-2">
+          @for (showtime of showtimes; track showtime.id) {
+            <p-button
+              (onClick)="onShowtimeClick(showtime)"
+              [label]="getShowtimeLabel(showtime)"
+              [outlined]="true"
+              class="mr-2"
+            />
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="flex justify-content-center">
+  <div class="w-10">
+    <h1>TRAILER</h1>
+    <div class="video-container">
+      <iframe
+        [src]="movie?.trailer ?? '' | safe"
+        width="560"
+        height="315"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</section>

@@ -1,12 +1,14 @@
 <!-- app.component.html -->
 
-<div *ngIf="isAuthenticated$ | async; else notAuthorized">
-  <router-outlet />
-</div>
-
-<ng-template #notAuthorized>
+@if (isAuthenticated$ | async) {
+  <div class="flex justify-content-center">
+    <div class="container">
+      <router-outlet />
+    </div>
+  </div>
+} @else {
   <router-outlet></router-outlet>
-</ng-template>
+}
 
 <!-- Toast message -->
 <p-toast></p-toast>

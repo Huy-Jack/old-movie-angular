@@ -24,7 +24,7 @@ export class AuthService {
     const body = { username, password }
     this.http.post<AuthRes>(url, body).subscribe((res) => {
       localStorage.setItem('token', res.access_token)
-      this.router.navigateByUrl('/')
+      // this.router.navigateByUrl('/') TODO: open this later
     })
   }
 
@@ -36,6 +36,7 @@ export class AuthService {
   }
   signout() {
     localStorage.removeItem('token')
+    this.isAuthenticated$.next(false)
     this.router.navigateByUrl('/auth/sign-in')
   }
 

@@ -21,7 +21,6 @@ export const serverErrorInterceptor: HttpInterceptorFn = (request, next) => {
     catchError((error: HttpErrorResponse) => {
       if ([HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden].includes(error.status)) {
         authService.signout()
-        router.navigateByUrl('/auth/sign-in')
       }
 
       return throwError(() => error)
