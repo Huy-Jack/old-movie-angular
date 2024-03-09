@@ -41,7 +41,6 @@ export class MovieDetailComponent implements OnInit {
   }
 
   onShowtimeClick(showtime: ShowTime) {
-    console.log('hello')
-    this.router.navigateByUrl(`/booking/${showtime.movieId}`)
+    this.router.navigateByUrl(`/booking/${showtime.movieId}/${showtime.id}`)
   }
 }

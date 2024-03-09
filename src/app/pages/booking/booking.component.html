@@ -7,14 +7,16 @@
 <div class="w-full h-5rem bg-gray-100 flex align-items-center px-5 gap-3">
   @for (item of showTime$ | async; track item; let index = $index) {
     <a
-      (click)="showTimingsSelected = index"
+      (click)="onChangeShowTime(item.id)"
       [ngClass]="
-        showTimingsSelected === index ? 'bg-green-300 text-white' : 'border-1 text-green-500'
+        showTimeSelected === item.id ? 'bg-green-300 text-white' : 'border-1 text-green-500'
       "
       class="flex flex-column h-3rem justify-content-center px-5 border-round cursor-pointer"
     >
-      <p class="text-sm">{{ item.start }}</p>
-      <p class="text-sm">{{ item.movieId }}</p>
+      <p class="text-sm">
+        {{ item.start | date: 'HH:mm' }} - {{ item.end | date: 'HH:mm' }} {{ item.id }}
+      </p>
+      <p class="text-sm"></p>
     </a>
   }
 </div>
@@ -35,8 +37,16 @@
   </div>
   <div class="grid flex justify-content-center">
     <div class="col-6 flex flex-wrap w-full h-full gap-2">
-      @for (sheet of sheets; track sheet; let index = $index) {
-        <button class="bg-white w-3rem h-3rem border-1 border-green-300">
+      @for (seat of seat$ | async; track seat; let index = $index) {
+        <button
+          [ngClass]="{
+            'hover:bg-green-300 border-green-300': seat.isAvailable,
+            'bg-gray-300 pointer-events-none': !seat.isAvailable,
+            'bg-green-300': seatSelected === seat.seatId
+          }"
+          (click)="onSeatSlect(seat.seatId)"
+          class="w-3rem h-3rem border-1"
+        >
           <p class="text-xs text-green">{{ index + 1 }}</p>
         </button>
       }
