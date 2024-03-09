@@ -18,8 +18,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(BrowserAnimationsModule),
     provideHttpClient(
       withInterceptors([
-        serverErrorInterceptor,
         jwtInterceptor,
+        serverErrorInterceptor,
         loadingInterceptor,
         toastInterceptor,
       ]),
