@@ -13,7 +13,7 @@ export const routes: Routes = [
     // canMatch: [authGuard({ requiresAuthentication: false })],
   },
   {
-    path: 'booking/:movieId',
+    path: 'booking/:movieId/:showTimeId',
     loadComponent: async () => (await import('./pages/booking/booking.component')).BookingComponent,
   },
   {
