@@ -1,0 +1,37 @@
+@import './variables.scss';
+
+.container {
+  width: 1200px;
+}
+.text-primary {
+  color: $primary-color;
+}
+.text-secondary {
+  color: $secondary-color;
+}
+.bg-primary {
+  background-color: $primary-color;
+}
+.bg-secondary {
+  background-color: $secondary-color;
+}
+.border-primary {
+  border: 1px solid $primary-color;
+}
+.border-secondary {
+  border: 1px solid $secondary-color;
+}
+.btn-secondary {
+  border: 1px solid $secondary-color;
+  color: $secondary-color;
+  background: transparent;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 20px;
+  padding: 0.6rem 0;
+  cursor: pointer;
+  &:hover {
+    color: white;
+    background: $secondary-color;
+  }
+}

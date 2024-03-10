@@ -1,0 +1,16 @@
+@import '../../../styles/variables.scss';
+
+.movie-card {
+  border: 1px solid transparent;
+  transition: all ease 0.2s;
+  border-radius: 7px;
+  overflow: hidden;
+  cursor: pointer;
+  &:hover {
+    border: 1px solid $secondary-color;
+  }
+}
+
+h1 {
+  font-weight: 900;
+}

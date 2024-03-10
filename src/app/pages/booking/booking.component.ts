@@ -1,25 +1,25 @@
-import { Component, inject, OnInit } from '@angular/core'
+import { AsyncPipe } from '@angular/common'
+import { Component, inject, Input, OnInit } from '@angular/core'
+import { Router, RouterModule } from '@angular/router'
+import { Seat } from '@interfaces/seat.interface'
+import { ShowTime } from '@interfaces/showtime.interface'
+import { SeatService } from '@services/seat/seat.service'
+import { ShowtimeService } from '@services/showtime/showtime.service'
+import { ButtonModule } from 'primeng/button'
 import { CarouselModule } from 'primeng/carousel'
 import { TagModule } from 'primeng/tag'
-import { ButtonModule } from 'primeng/button'
-import { ActivatedRoute, Router } from '@angular/router'
-import { ShowtimeService } from '@services/showtime/showtime.service'
-import { SeatService } from '@services/seat/seat.service'
 import { Observable } from 'rxjs'
-import { ShowTime } from '@interfaces/showtime.interface'
-import { AsyncPipe } from '@angular/common'
-import { Seat } from '@interfaces/seat.interface'
 
 @Component({
-  selector: 'app-booking',
   standalone: true,
-  imports: [CarouselModule, TagModule, ButtonModule, AsyncPipe],
+  imports: [RouterModule, CarouselModule, TagModule, ButtonModule, AsyncPipe],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss',
   providers: [ShowtimeService, SeatService],
 })
 export class BookingComponent implements OnInit {
-  private readonly _route: ActivatedRoute = inject(ActivatedRoute)
+  @Input() movieId: string
+  @Input() showTimeId: string
   private readonly showTimeService: ShowtimeService = inject(ShowtimeService)
   private readonly seatService: SeatService = inject(SeatService)
   private readonly router: Router = inject(Router)
@@ -30,20 +30,21 @@ export class BookingComponent implements OnInit {
   seat$!: Observable<Seat[]>
 
   ngOnInit(): void {
-    const { movieId, showTimeId } = this._route.snapshot.params
-    if (!movieId && !showTimeId) return
-    this.showTime$ = this.showTimeService.getShowTime(movieId)
-    this.seat$ = this.seatService.getSeat(showTimeId)
-    this.showTimeSelected = showTimeId
+    if (!this.movieId && !this.showTimeId) return
+    this.showTime$ = this.showTimeService.getShowTime(this.movieId)
+    this.seat$ = this.seatService.getSeat(this.showTimeId)
+    this.showTimeSelected = this.showTimeId
   }
 
   onChangeShowTime(showTimeId: string): void {
-    const { movieId } = this._route.snapshot.params
     this.seat$ = this.seatService.getSeat(showTimeId)
     this.showTimeSelected = showTimeId
-    this.router.navigate(['/booking', movieId, showTimeId])
+    this.router.navigate(['/booking', this.movieId, showTimeId])
   }
   onSeatSlect(seatId: string): void {
     this.seatSelected = seatId
+  }
+  onBackClick() {
+    this.router.navigateByUrl(`/detail/${this.movieId}`)
   }
 }

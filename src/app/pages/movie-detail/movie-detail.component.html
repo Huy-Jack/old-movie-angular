@@ -9,7 +9,7 @@
       <div><b>Rating:</b> {{ movie?.rating }}</div>
       <hr />
       <div><b>Genre:</b> {{ movie?.genre }}</div>
-      <div><b>Release Date:</b> {{ getFormattedReleaseDate(movie?.releaseDate) }}</div>
+      <div><b>Release Date:</b> {{ movie?.releaseDate | date: 'dd/MM/yyyy' }}</div>
       <div><b>Description:</b> {{ movie?.description }}</div>
 
       @if (movie?.ongoing) {

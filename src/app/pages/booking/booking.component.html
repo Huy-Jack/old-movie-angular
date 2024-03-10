@@ -1,15 +1,15 @@
-<div class="h-5rem flex align-items-center">
-  <a class="cursor-pointer">
+<div (click)="onBackClick()" class="h-5rem flex align-items-center cursor-pointer">
+  <a>
     <i class="pi pi-angle-left" style="font-size: 2rem"></i>
   </a>
   <h3>Movie Name</h3>
 </div>
-<div class="w-full h-5rem bg-gray-100 flex align-items-center px-5 gap-3">
+<div class="w-full h-5rem flex align-items-center px-5 gap-3">
   @for (item of showTime$ | async; track item; let index = $index) {
     <a
       (click)="onChangeShowTime(item.id)"
       [ngClass]="
-        showTimeSelected === item.id ? 'bg-green-300 text-white' : 'border-1 text-green-500'
+        showTimeSelected === item.id ? 'bg-secondary text-white' : 'border-secondary text-primary'
       "
       class="flex flex-column h-3rem justify-content-center px-5 border-round cursor-pointer"
     >
@@ -23,11 +23,11 @@
 <div class="h-30rem mt-8 mx-auto sheet_container p-2 mx-5">
   <div class="flex h-3rem gap-5">
     <div class="flex gap-2">
-      <div class="h-1rem w-1rem border-1 border-green-300"></div>
+      <div class="h-1rem w-1rem border-secondary"></div>
       <p class="text-sm">Available</p>
     </div>
     <div class="flex gap-2">
-      <div class="h-1rem w-1rem bg-green-300"></div>
+      <div class="h-1rem w-1rem bg-secondary"></div>
       <p class="text-sm">Selected</p>
     </div>
     <div class="flex gap-2">
@@ -40,14 +40,14 @@
       @for (seat of seat$ | async; track seat; let index = $index) {
         <button
           [ngClass]="{
-            'hover:bg-green-300 border-green-300': seat.isAvailable,
+            'hover:bg-secondary border-secondary': seat.isAvailable,
             'bg-gray-300 pointer-events-none': !seat.isAvailable,
-            'bg-green-300': seatSelected === seat.seatId
+            'bg-secondary': seatSelected === seat.seatId
           }"
           (click)="onSeatSlect(seat.seatId)"
-          class="w-3rem h-3rem border-1"
+          class="w-3rem h-3rem border-secondary"
         >
-          <p class="text-xs text-green">{{ index + 1 }}</p>
+          <p class="text-xs text-secondary">{{ index + 1 }}</p>
         </button>
       }
       <div class="mx-auto flex flex-column">

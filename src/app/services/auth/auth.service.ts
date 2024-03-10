@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http'
-import { Injectable, signal, WritableSignal } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { AuthRes, SignUpBody } from '@interfaces/auth.interface'
-import { BehaviorSubject, tap } from 'rxjs'
 import { User } from '@interfaces/user.interface'
+import { BehaviorSubject } from 'rxjs'
 
 const defaultUser: User = {
   token: '',
@@ -14,7 +14,8 @@ const defaultUser: User = {
   providedIn: 'root',
 })
 export class AuthService {
-  public user: WritableSignal<User> = signal<User>(defaultUser)
+  public user$: BehaviorSubject<User> = new BehaviorSubject<User>(defaultUser)
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -23,34 +24,28 @@ export class AuthService {
   signin(username: string, password: string) {
     const url = 'api/auth/signin'
     const body = { username, password }
-    this.http
-      .post<AuthRes>(url, body)
-      .pipe(
-        tap((res) => {
-          localStorage.setItem('token', res.access_token)
-          this.user.set({ token: res.access_token, userInfo: {} })
-        }),
-      )
-      .subscribe(() => {
-        this.router.navigateByUrl('/')
-      })
+    this.http.post<AuthRes>(url, body).subscribe((res) => {
+      localStorage.setItem('token', res.access_token)
+      this.user$.next({ token: res.access_token, userInfo: {} })
+      this.router.navigateByUrl('/')
+    })
   }
 
   signup(body: SignUpBody) {
     const url = 'api/auth/signup'
-    return this.http.post<AuthRes>(url, body).subscribe((res) => {
+    return this.http.post<AuthRes>(url, body).subscribe(() => {
       this.router.navigateByUrl('/auth/sign-in')
     })
   }
   signout() {
     localStorage.removeItem('token')
-    this.user.set(defaultUser)
+    this.user$.next(defaultUser)
     this.router.navigateByUrl('/auth/sign-in')
   }
 
   autoLogin(): void {
     const token = this.getToken()
-    this.user.set({ token, userInfo: {} })
+    this.user$.next({ token, userInfo: {} })
   }
   getToken() {
     return localStorage.getItem('token') ?? ''

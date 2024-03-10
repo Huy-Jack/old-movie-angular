@@ -1,25 +1,25 @@
 import { Routes } from '@angular/router'
+import { HomeComponent } from './pages/home/home.component'
+import { BookingComponent } from './pages/booking/booking.component'
+import { MovieDetailComponent } from './pages/movie-detail/movie-detail.component'
 
 export const routes: Routes = [
   {
     path: '',
     title: 'Home',
-    loadComponent: async () => (await import('./pages/home/home.component')).HomeComponent,
-    // canMatch: [authGuard()],
+    component: HomeComponent,
   },
   {
     path: 'auth',
     loadChildren: async () => (await import('./pages/auth/index')).routes,
-    // canMatch: [authGuard({ requiresAuthentication: false })],
   },
   {
     path: 'booking/:movieId/:showTimeId',
-    loadComponent: async () => (await import('./pages/booking/booking.component')).BookingComponent,
+    component: BookingComponent,
   },
   {
-    path: 'detail',
-    loadComponent: async () =>
-      (await import('./pages/movie-detail/movie-detail.component')).MovieDetailComponent,
+    path: 'detail/:movieId',
+    component: MovieDetailComponent,
   },
   {
     path: '**',

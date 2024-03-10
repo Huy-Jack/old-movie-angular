@@ -1,0 +1,71 @@
+@import './variables.scss';
+
+.p-card {
+  .p-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    height: 5rem;
+  }
+  .p-card-subtitle {
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    height: 2rem;
+  }
+  .p-card-content {
+    padding: 0;
+  }
+}
+
+.p-input-icon-left > .p-inputtext {
+  color: white;
+  background-color: $primary-color;
+}
+
+.pi.pi-search {
+  color: white;
+}
+
+.p-inputtext {
+  &:enabled {
+    &:focus {
+      box-shadow: none;
+      border-color: $secondary-color;
+    }
+    &:hover {
+      box-shadow: none;
+      border-color: $secondary-color;
+    }
+  }
+}
+
+.p-button.p-button-outlined:not(:disabled):active {
+  color: transparent;
+  border: 1px solid;
+}
+
+.p-button:focus {
+  box-shadow: none;
+}
+.p-button:hover {
+  border: 1px solid $secondary-color;
+  .p-button-label {
+    color: $secondary-color;
+  }
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+  background-color: $secondary-color;
+}
+
+.p-carousel .p-carousel-content {
+  .p-carousel-prev:enabled:hover,
+  .p-carousel-next:enabled:hover {
+    color: rgb(55, 65, 81);
+    border-color: transparent;
+    background: $secondary-color;
+  }
+  .p-carousel-prev:focus-visible,
+  .p-carousel-next:focus-visible {
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,27 @@
+@import '../../../styles/variables.scss';
+.nav-bar {
+  padding: 20px 0;
+  border-bottom: 1px solid white;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.logo {
+  color: $secondary-color;
+  font-weight: 900;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.pi-sign-out {
+  font-size: 22px;
+  cursor: pointer;
+  &:hover {
+    color: $secondary-color;
+  }
+}

@@ -9,18 +9,21 @@ import moment from 'moment'
   providedIn: 'root',
 })
 export class MovieService {
-  currentMovie: Movie | null = null
-
   constructor(private readonly http: HttpClient) {}
 
-  getOngoingMovie(params: { ongoing: boolean }) {
+  getMovies(params: { ongoing: boolean }) {
     const url = 'api/movies/get-all'
     const options = { params }
     return this.http.get<Movie[]>(url, options)
   }
 
-  getShowtimes() {
-    const url = `api/showtime/${this.currentMovie?.id}`
+  getMovieById(id: string) {
+    const url = `api/movies/${id}`
+    return this.http.get<Movie>(url)
+  }
+
+  getShowtimes(movieId: string) {
+    const url = `api/showtime/${movieId}`
     return this.http
       .get<ShowTime[]>(url)
       .pipe(map((showtimes) => showtimes.map((showtime) => this.formatShowtime(showtime))))

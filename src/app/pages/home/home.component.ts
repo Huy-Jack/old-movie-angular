@@ -9,6 +9,7 @@ import { CarouselModule } from 'primeng/carousel'
 import { CardModule } from 'primeng/card'
 import { Movie } from '@interfaces/movie.interface'
 import { MovieService } from '@services/movie/movie.service'
+import { forkJoin } from 'rxjs'
 
 @Component({
   selector: 'app-home',
@@ -30,14 +31,14 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.bannerService.getAllBanners().subscribe((res) => {
-      this.banners = res
-    })
-    this.movieService.getOngoingMovie({ ongoing: true }).subscribe((res) => {
-      this.ongoingMovies = res
-    })
-    this.movieService.getOngoingMovie({ ongoing: false }).subscribe((res) => {
-      this.upcomingMovies = res
+    forkJoin({
+      banners: this.bannerService.getAllBanners(),
+      ongoingMovies: this.movieService.getMovies({ ongoing: true }),
+      upcomingMovies: this.movieService.getMovies({ ongoing: false }),
+    }).subscribe(({ banners, ongoingMovies, upcomingMovies }) => {
+      this.banners = banners
+      this.ongoingMovies = ongoingMovies
+      this.upcomingMovies = upcomingMovies
     })
   }
 
@@ -46,7 +47,6 @@ export class HomeComponent implements OnInit {
   }
 
   onBookClick(movie: Movie) {
-    this.movieService.currentMovie = movie
-    this.router.navigateByUrl('/detail')
+    this.router.navigateByUrl(`/detail/${movie.id}`)
   }
 }

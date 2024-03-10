@@ -1,39 +1,36 @@
-import { Component, OnInit } from '@angular/core'
-import { SafeResourceUrl } from '@angular/platform-browser'
+import { DatePipe } from '@angular/common'
+import { Component, Input, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Movie } from '@interfaces/movie.interface'
 import { ShowTime } from '@interfaces/showtime.interface'
 import { MovieService } from '@services/movie/movie.service'
 import { SafePipe } from 'app/pipes/safe.pipe'
-import moment from 'moment'
 import { ButtonModule } from 'primeng/button'
+import { forkJoin } from 'rxjs'
 
 @Component({
-  selector: 'app-movie-detail',
   standalone: true,
-  imports: [ButtonModule, SafePipe],
+  imports: [ButtonModule, SafePipe, DatePipe],
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.scss',
 })
 export class MovieDetailComponent implements OnInit {
+  @Input() movieId: string
   movie: Movie | null = null
   showtimes: ShowTime[]
   constructor(
     private movieService: MovieService,
     private router: Router,
-  ) {
-    this.movie = movieService.currentMovie
-    // this.trailerVideoUrl = movieService.currentMovie?.trailer
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.movieService.getShowtimes().subscribe((res) => {
-      this.showtimes = res
+    forkJoin({
+      showtimes: this.movieService.getShowtimes(this.movieId),
+      movie: this.movieService.getMovieById(this.movieId),
+    }).subscribe(({ showtimes, movie }) => {
+      this.showtimes = showtimes
+      this.movie = movie
     })
-  }
-
-  getFormattedReleaseDate(date?: Date) {
-    return date ? moment(date).format('DD/MM/YYYY') : ''
   }
 
   getShowtimeLabel(showtime: ShowTime) {

@@ -18,7 +18,6 @@ import { AuthService } from '@services/auth/auth.service'
 import { SignUpBody } from '@interfaces/auth.interface'
 
 @Component({
-  selector: 'app-sign-up',
   standalone: true,
   imports: [
     FormsModule,

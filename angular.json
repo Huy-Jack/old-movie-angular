@@ -29,7 +29,7 @@
               "primeng/resources/primeng.css",
               "primeicons/primeicons.css",
               "primeflex/primeflex.css",
-              "src/styles.scss"
+              "src/styles/styles.scss"
             ],
             "scripts": []
           },

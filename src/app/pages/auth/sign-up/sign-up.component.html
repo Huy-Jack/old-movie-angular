@@ -6,7 +6,16 @@
     <form (formValueChange)="signupForm = $event" (ngSubmit)="onSubmit()" class="flex flex-column">
       <div class="field">
         <label for="userName">Username</label>
-        <input class="w-full" id="userName" type="text" name="userName" ngModel required autoValidate pInputText />
+        <input
+          class="w-full"
+          id="userName"
+          type="text"
+          name="userName"
+          ngModel
+          required
+          autoValidate
+          pInputText
+        />
       </div>
 
       <div class="field">
@@ -41,17 +50,45 @@
 
       <div class="field">
         <label for="firstName">First Name</label>
-        <input class="w-full" id="firstName" type="text" name="firstName" ngModel required autoValidate pInputText />
+        <input
+          class="w-full"
+          id="firstName"
+          type="text"
+          name="firstName"
+          ngModel
+          required
+          autoValidate
+          pInputText
+        />
       </div>
 
       <div class="field">
         <label for="lastName">Last Name</label>
-        <input class="w-full" id="lastName" type="text" name="lastName" ngModel required autoValidate pInputText />
+        <input
+          class="w-full"
+          id="lastName"
+          type="text"
+          name="lastName"
+          ngModel
+          required
+          autoValidate
+          pInputText
+        />
       </div>
 
       <div class="field">
         <label for="email">Email</label>
-        <input class="w-full" id="email" type="email" name="email" ngModel required email autoValidate pInputText />
+        <input
+          class="w-full"
+          id="email"
+          type="email"
+          name="email"
+          ngModel
+          required
+          email
+          autoValidate
+          pInputText
+        />
       </div>
 
       <div class="field">
@@ -70,10 +107,17 @@
 
       <div class="field">
         <label for="dob" class="block">Date of Birth</label>
-        <p-calendar styleClass="w-full" [showIcon]="true" name="dob" ngModel autoValidate [required]="true"></p-calendar>
+        <p-calendar
+          styleClass="w-full"
+          [showIcon]="true"
+          name="dob"
+          ngModel
+          autoValidate
+          [required]="true"
+        ></p-calendar>
       </div>
 
-      <button type="submit" pButton label="Sign Up"></button>
+      <button type="submit" class="btn-secondary w-full">Sign Up</button>
     </form>
   </div>
 </div>

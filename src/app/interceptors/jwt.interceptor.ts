@@ -1,5 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http'
 import { inject } from '@angular/core'
+import { User } from '@interfaces/user.interface'
 import { AuthService } from '@services/auth/auth.service'
 
 /**
@@ -12,8 +13,7 @@ import { AuthService } from '@services/auth/auth.service'
  */
 export const jwtInterceptor: HttpInterceptorFn = (request, next) => {
   const authService = inject(AuthService)
-  const user = authService.user()
-  if (user.token) {
+  if (authService.user$.value.token) {
     const clonedRequest = request.clone({
       setHeaders: {
         Authorization: authService.getToken(),

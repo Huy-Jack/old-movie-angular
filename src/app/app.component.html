@@ -1,14 +1,17 @@
 <!-- app.component.html -->
 
-@if (!!user.token) {
-  <div class="flex justify-content-center">
-    <div class="container">
-      <router-outlet />
+@if (!!(user$ | async)?.token) {
+  <div class="wrapper">
+    <app-nav-bar />
+    <div class="flex justify-content-center">
+      <div class="container">
+        <router-outlet />
+      </div>
     </div>
   </div>
 } @else {
-  <router-outlet></router-outlet>
+  <router-outlet />
 }
 
 <!-- Toast message -->
-<p-toast></p-toast>
+<p-toast />
