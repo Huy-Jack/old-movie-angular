@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
 import { Router, RouterModule } from '@angular/router'
 import { Banner } from '@interfaces/banner.interface'
+import { Movie } from '@interfaces/movie.interface'
 import { AuthService } from '@services/auth/auth.service'
 import { BannerService } from '@services/banner/banner.service'
-import { ButtonModule } from 'primeng/button'
-import { CarouselModule } from 'primeng/carousel'
-import { CardModule } from 'primeng/card'
-import { Movie } from '@interfaces/movie.interface'
 import { MovieService } from '@services/movie/movie.service'
-import { forkJoin } from 'rxjs'
+import { ButtonModule } from 'primeng/button'
+import { CardModule } from 'primeng/card'
+import { CarouselModule } from 'primeng/carousel'
+import { forkJoin, shareReplay } from 'rxjs'
 
 @Component({
   selector: 'app-home',
@@ -35,11 +35,13 @@ export class HomeComponent implements OnInit {
       banners: this.bannerService.getAllBanners(),
       ongoingMovies: this.movieService.getMovies({ ongoing: true }),
       upcomingMovies: this.movieService.getMovies({ ongoing: false }),
-    }).subscribe(({ banners, ongoingMovies, upcomingMovies }) => {
-      this.banners = banners
-      this.ongoingMovies = ongoingMovies
-      this.upcomingMovies = upcomingMovies
     })
+      .pipe(shareReplay(1))
+      .subscribe(({ banners, ongoingMovies, upcomingMovies }) => {
+        this.banners = banners
+        this.ongoingMovies = ongoingMovies
+        this.upcomingMovies = upcomingMovies
+      })
   }
 
   signout() {

@@ -5,6 +5,7 @@ import { provideRouter, withComponentInputBinding } from '@angular/router'
 import { MessageService } from 'primeng/api'
 import { routes } from './app.routes'
 import {
+  cachingInterceptor,
   jwtInterceptor,
   loadingInterceptor,
   serverErrorInterceptor,
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([
         jwtInterceptor,
+        cachingInterceptor,
         serverErrorInterceptor,
         loadingInterceptor,
         toastInterceptor,

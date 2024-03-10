@@ -46,6 +46,10 @@
 .p-button:focus {
   box-shadow: none;
 }
+.p-button {
+  color: white;
+  border-color: white;
+}
 .p-button:hover {
   border: 1px solid $secondary-color;
   .p-button-label {
