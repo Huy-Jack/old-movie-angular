@@ -9,13 +9,15 @@ import { ButtonModule } from 'primeng/button'
 import { CarouselModule } from 'primeng/carousel'
 import { TagModule } from 'primeng/tag'
 import { Observable } from 'rxjs'
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog'
+import { PaymentComponent } from '@pages/booking/payment/payment.component'
 
 @Component({
   standalone: true,
   imports: [RouterModule, CarouselModule, TagModule, ButtonModule, AsyncPipe],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss',
-  providers: [ShowtimeService, SeatService],
+  providers: [ShowtimeService, SeatService, DialogService],
 })
 export class BookingComponent implements OnInit {
   @Input() movieId: string
@@ -23,11 +25,13 @@ export class BookingComponent implements OnInit {
   private readonly showTimeService: ShowtimeService = inject(ShowtimeService)
   private readonly seatService: SeatService = inject(SeatService)
   private readonly router: Router = inject(Router)
+  private readonly dialogService: DialogService = inject(DialogService)
 
   showTimeSelected: string = ''
-  seatSelected: string = ''
+  seatSelected: string[] = []
   showTime$!: Observable<ShowTime[]>
   seat$!: Observable<Seat[]>
+  ref: DynamicDialogRef | undefined
 
   ngOnInit(): void {
     if (!this.movieId && !this.showTimeId) return
@@ -41,10 +45,27 @@ export class BookingComponent implements OnInit {
     this.showTimeSelected = showTimeId
     this.router.navigate(['/booking', this.movieId, showTimeId])
   }
-  onSeatSlect(seatId: string): void {
-    this.seatSelected = seatId
+  onSeatSelect(seatId: string): void {
+    if (!this.seatSelected.includes(seatId)) {
+      this.seatSelected.push(seatId)
+      return
+    }
+    this.seatSelected = this.seatSelected.filter((item) => item !== seatId)
   }
   onBackClick() {
     this.router.navigateByUrl(`/detail/${this.movieId}`)
+  }
+  showPayment() {
+    this.ref = this.dialogService.open(PaymentComponent, {
+      header: 'Select a Product',
+      width: '50vw',
+      data: this.seatSelected,
+    })
+
+    this.ref.onClose.subscribe((res) => {
+      if (res.isPay) {
+        this.onChangeShowTime(this.showTimeId)
+      }
+    })
   }
 }
