@@ -26,6 +26,7 @@
       "@layout/*": ["app/layout/*"],
       "@pages/*": ["app/pages/*"],
       "@interfaces/*": ["app/interfaces/*"],
+      "@components/*": ["app/components/*"],
       "@services/*": ["app/services/*"],
       "@directives/*": ["app/directives/*"],
       "@constants/*": ["app/constants/*"],

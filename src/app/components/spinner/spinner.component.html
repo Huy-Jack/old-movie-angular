@@ -1,0 +1,9 @@
+<div class="relative flex justify-content-center align-content-center w-full h-full">
+  @if (isLoading$ | async) {
+    <div class="inset-0 flex justify-content-center align-content-center w-full">
+      <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+    </div>
+  } @else {
+    <ng-content></ng-content>
+  }
+</div>

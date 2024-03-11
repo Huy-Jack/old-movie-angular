@@ -57,7 +57,7 @@ export class BookingComponent implements OnInit {
   }
   showPayment() {
     this.ref = this.dialogService.open(PaymentComponent, {
-      header: 'Select a Product',
+      header: 'Payment',
       width: '50vw',
       data: this.seatSelected,
     })
