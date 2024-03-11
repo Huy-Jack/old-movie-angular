@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, OnInit } from '@angular/core'
+import { Component, inject, OnInit } from '@angular/core'
 import { Router, RouterModule } from '@angular/router'
 import { Banner } from '@interfaces/banner.interface'
 import { Movie } from '@interfaces/movie.interface'
@@ -10,11 +10,13 @@ import { ButtonModule } from 'primeng/button'
 import { CardModule } from 'primeng/card'
 import { CarouselModule } from 'primeng/carousel'
 import { forkJoin, shareReplay } from 'rxjs'
+import { LoadingService } from '@services/loading/loading.service'
+import { SpinnerComponent } from '@components/spinner/spinner.component'
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, ButtonModule, CarouselModule, CardModule],
+  imports: [CommonModule, RouterModule, ButtonModule, CarouselModule, CardModule, SpinnerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

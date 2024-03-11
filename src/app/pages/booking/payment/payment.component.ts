@@ -11,6 +11,9 @@ import { PaymentPayload } from '@interfaces/payment.inteface'
 import { ActivatedRoute } from '@angular/router'
 import { delay, of, switchMap } from 'rxjs'
 import { MessageService } from 'primeng/api'
+import { ProgressSpinnerModule } from 'primeng/progressspinner'
+import { SpinnerComponent } from '@components/spinner/spinner.component'
+import { LoadingService } from '@services/loading/loading.service'
 
 @Component({
   selector: 'app-payment',
@@ -22,6 +25,8 @@ import { MessageService } from 'primeng/api'
     InputTextModule,
     PasswordModule,
     InputMaskModule,
+    ProgressSpinnerModule,
+    SpinnerComponent,
   ],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss',
@@ -32,7 +37,8 @@ export class PaymentComponent {
   private readonly ref: DynamicDialogRef = inject(DynamicDialogRef)
   private readonly bookingService: BookingService = inject(BookingService)
   private readonly _route: ActivatedRoute = inject(ActivatedRoute)
-  private readonly messageService = inject(MessageService)
+  private readonly messageService: MessageService = inject(MessageService)
+  private readonly loadingService: LoadingService = inject(LoadingService)
 
   paymentForm: FormGroup
   seatSelected: string[] = []
@@ -40,6 +46,7 @@ export class PaymentComponent {
   constructor(public config: DynamicDialogConfig) {
     this.seatSelected = config.data
   }
+
   cardNumberValidation: ValidatorFn = (control: AbstractControl) => {
     if (!control.value) return null
     const isValid = /^\d{16}$/.test(control.value.replace(/\s/g, ''))
@@ -52,6 +59,8 @@ export class PaymentComponent {
     const { showTimeId } = this._route.snapshot.params
     const payload: PaymentPayload = { showtimeId: showTimeId, seat: this.seatSelected }
 
+    // Remove if we don't want to mock the delay in payment.
+    this.loadingService.showLoader()
     of(null)
       .pipe(
         delay(5000),

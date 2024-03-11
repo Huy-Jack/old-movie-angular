@@ -1,35 +1,39 @@
 <section>
   <div class="card">
-    <p-carousel [value]="banners" [numVisible]="1" [numScroll]="1" [circular]="true">
-      <ng-template let-banner pTemplate="item">
-        <div class="text-center">
-          <img [src]="banner.url" class="w-full" />
-        </div>
-      </ng-template>
-    </p-carousel>
+    <app-spinner>
+      <p-carousel [value]="banners" [numVisible]="1" [numScroll]="1" [circular]="true">
+        <ng-template let-banner pTemplate="item">
+          <div class="text-center">
+            <img [src]="banner.url" class="w-full" />
+          </div>
+        </ng-template>
+      </p-carousel>
+    </app-spinner>
   </div>
 </section>
 
 <section>
   <h1 class="text-center text-4xl">ONGOING MOVIES</h1>
-
-  <div class="flex flex-wrap justify-content-center gap-3">
-    @for (movie of ongoingMovies; track $index) {
-      <div (click)="onBookClick(movie)" class="movie-card">
-        <img [src]="movie.poster" class="h-full w-16rem" />
-      </div>
-    }
-  </div>
+  <app-spinner>
+    <div class="flex flex-wrap justify-content-center gap-3">
+      @for (movie of ongoingMovies; track $index) {
+        <div (click)="onBookClick(movie)" class="movie-card">
+          <img [src]="movie.poster" class="h-full w-16rem" />
+        </div>
+      }
+    </div>
+  </app-spinner>
 </section>
 
 <section>
   <h1 class="text-center text-4xl">UPCOMING MOVIES</h1>
-
-  <div class="flex flex-wrap justify-content-center gap-3">
-    @for (movie of upcomingMovies; track $index) {
-      <div (click)="onBookClick(movie)" class="movie-card">
-        <img [src]="movie.poster" class="h-full w-16rem" />
-      </div>
-    }
-  </div>
+  <app-spinner>
+    <div class="flex flex-wrap justify-content-center gap-3">
+      @for (movie of upcomingMovies; track $index) {
+        <div (click)="onBookClick(movie)" class="movie-card">
+          <img [src]="movie.poster" class="h-full w-16rem" />
+        </div>
+      }
+    </div>
+  </app-spinner>
 </section>
