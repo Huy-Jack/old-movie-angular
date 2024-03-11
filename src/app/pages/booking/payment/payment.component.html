@@ -1,0 +1,76 @@
+<div class="flex justify-content-center align-items-center w-full">
+  <div class="card flex flex-column align-items-center justify-content-center">
+    <form (formValueChange)="paymentForm = $event" (ngSubmit)="onSubmit()" class="grid gap-1">
+      <div class="field col-12">
+        <label for="cardNumber">Email <span class="text-red-500">*</span></label>
+        <input
+          type="text"
+          id="email"
+          class="w-full"
+          name="email"
+          ngModel
+          required
+          email
+          pInputText
+          autoValidate
+        />
+      </div>
+      <div class="field col-12">
+        <label for="nameOnCard">Name on card <span class="text-red-500">*</span></label>
+        <input
+          type="text"
+          id="nameOnCard"
+          class="w-full"
+          name="nameOnCard"
+          ngModel
+          required
+          pInputText
+          autoValidate
+        />
+      </div>
+      <div class="field col-12">
+        <label for="cardNumber">Card Number <span class="text-red-500">*</span></label>
+        <input
+          type="text"
+          id="cardNumber"
+          class="w-full"
+          name="cardNumber"
+          ngModel
+          [customValidation]="[cardNumberValidation]"
+          required
+          pInputText
+          autoValidate
+        />
+      </div>
+      <div class="field">
+        <label for="expiry">Expiry <span class="text-red-500">*</span></label>
+        <div class="w-full flex flex-column">
+          <p-inputMask
+            class="mask-input"
+            id="expiry"
+            mask="99/99"
+            name="expiry"
+            autoValidate
+            [required]="true"
+            ngModel
+          ></p-inputMask>
+        </div>
+      </div>
+      <div class="field">
+        <label for="cvc">CVC <span class="text-red-500">*</span></label>
+        <div class="w-full flex flex-column">
+          <p-inputMask
+            class="mask-input"
+            id="cvc"
+            mask="999"
+            name="cvc"
+            autoValidate
+            [required]="true"
+            ngModel
+          ></p-inputMask>
+        </div>
+      </div>
+      <button type="submit" class="btn-secondary w-full">Buy ticket</button>
+    </form>
+  </div>
+</div>

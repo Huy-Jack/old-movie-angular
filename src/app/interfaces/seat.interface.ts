@@ -1,4 +1,4 @@
 export interface Seat {
-  isAvailable: boolean
+  isAvailable: string
   seatId: string
 }
