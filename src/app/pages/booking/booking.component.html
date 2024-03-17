@@ -13,7 +13,7 @@
       'cursor-pointer hover:bg-secondary hover:text-white': seatSelected.length > 0,
       'opacity-40': seatSelected.length === 0
     }"
-    class="w-10rem h-3rem bg--primary border-secondary text-secondary"
+    class="w-10rem h-3rem bg--primary border-secondary text-secondary border-round"
   >
     Pay
   </button>
@@ -33,15 +33,15 @@
 <div class="h-30rem mt-8 mx-auto sheet_container p-2 mx-5">
   <div class="flex h-3rem gap-5">
     <div class="flex gap-2">
-      <div class="h-1rem w-1rem border-secondary"></div>
+      <div class="h-1rem w-1rem border-secondary border-round"></div>
       <p class="text-sm">Available</p>
     </div>
     <div class="flex gap-2">
-      <div class="h-1rem w-1rem bg-secondary"></div>
+      <div class="h-1rem w-1rem bg-secondary border-round"></div>
       <p class="text-sm">Selected</p>
     </div>
     <div class="flex gap-2">
-      <div class="h-1rem w-1rem bg-gray-300"></div>
+      <div class="h-1rem w-1rem bg-gray-300 border-round"></div>
       <p class="text-sm">Sold</p>
     </div>
   </div>
@@ -56,46 +56,16 @@
             'bg-secondary text-white': seatSelected.includes(seat.seatId)
           }"
           (click)="onSeatSelect(seat.seatId)"
-          class="w-3rem bg--primary h-3rem border-secondary text-secondary"
+          class="w-3rem bg--primary h-3rem border-secondary text-secondary border-round"
         >
           {{ index + 1 }}
         </button>
       }
-      <div class="mx-auto flex flex-column text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">
-          <defs>
-            <filter id="balanced-shadow" x="0" y="0" width="150%" height="150%">
-              <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="rgba(0, 0, 0, 0.5)" />
-            </filter>
-          </defs>
-          <text
-            x="50%"
-            y="40%"
-            font-family="Arial"
-            font-size="13"
-            text-anchor="middle"
-            alignment-baseline="middle"
-          >
-            Screen
-          </text>
-          <path
-            d="M10 80 Q 150 150 290 80"
-            stroke="black"
-            stroke-width="5"
-            fill="transparent"
-            filter="url(#balanced-shadow)"
-          />
-          <text
-            x="50%"
-            y="70%"
-            font-family="Arial"
-            font-size="13"
-            text-anchor="middle"
-            alignment-baseline="middle"
-          >
-            All eyes this way please!
-          </text>
-        </svg>
+
+      <div
+        class="mx-auto mt-7 h-2rem w-30rem bg-white flex align-items-center justify-content-center border-round"
+      >
+        <strong class="text-secondary">SCREEN</strong>
       </div>
     </div>
   </div>
