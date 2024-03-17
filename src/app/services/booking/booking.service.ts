@@ -1,17 +1,16 @@
-import { inject, Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs'
-import { Seat } from '@interfaces/seat.interface'
+import { inject, Injectable } from '@angular/core'
 import { PaymentPayload } from '@interfaces/payment.inteface'
+import { Seat } from '@interfaces/seat.interface'
+import { ToastService } from '@services/toast/toast.service'
+import { Observable } from 'rxjs'
 
 @Injectable()
 export class BookingService {
-  httpClient: HttpClient = inject(HttpClient)
-  url: string = 'api/booking/ticket'
+  private httpClient = inject(HttpClient)
+  private url: string = 'api/booking/ticket'
 
-  constructor() {}
-
-  bookingPayment(paymentPayload: PaymentPayload): Observable<Seat[]> {
+  bookingPayment(paymentPayload: PaymentPayload): Observable<any> {
     return this.httpClient.post<Seat[]>(this.url, paymentPayload)
   }
 }

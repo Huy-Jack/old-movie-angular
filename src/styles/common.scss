@@ -30,6 +30,7 @@
   font-size: 20px;
   padding: 0.6rem 0;
   cursor: pointer;
+  transition: 0.2s color ease;
   &:hover {
     color: white;
     background: $secondary-color;

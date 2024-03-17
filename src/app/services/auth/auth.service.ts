@@ -15,6 +15,11 @@ const defaultUser: User = {
 })
 export class AuthService {
   public user$: BehaviorSubject<User> = new BehaviorSubject<User>(defaultUser)
+  private userName$: BehaviorSubject<string> = new BehaviorSubject<string>('')
+
+  get usernameObservable() {
+    return this.userName$.asObservable()
+  }
 
   constructor(
     private http: HttpClient,
@@ -26,7 +31,9 @@ export class AuthService {
     const body = { username, password }
     this.http.post<AuthRes>(url, body).subscribe((res) => {
       localStorage.setItem('token', res.access_token)
+      localStorage.setItem('username', res.user.userName)
       this.user$.next({ token: res.access_token, userInfo: {} })
+      this.userName$.next(res.user.userName)
       this.router.navigateByUrl('/')
     })
   }
@@ -39,6 +46,7 @@ export class AuthService {
   }
   signout() {
     localStorage.removeItem('token')
+    localStorage.removeItem('username')
     this.user$.next(defaultUser)
     this.router.navigateByUrl('/auth/sign-in')
   }

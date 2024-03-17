@@ -73,3 +73,12 @@
     box-shadow: none;
   }
 }
+
+.p-dialog {
+  .p-button {
+    color: gray;
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+}

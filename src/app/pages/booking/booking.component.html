@@ -1,10 +1,11 @@
 <div class="h-5rem flex justify-content-between align-items-center">
-  <div class="flex align-items-center">
-    <a class="hover:text-color-secondary cursor-pointer" (click)="onBackClick()">
-      <i class="pi pi-angle-left" style="font-size: 2rem"></i>
-    </a>
-    <h3>Movie Name</h3>
-  </div>
+  <a
+    class="flex align-items-center hover:text-color-secondary cursor-pointer"
+    (click)="onBackClick()"
+  >
+    <i class="pi pi-angle-left" style="font-size: 2rem"></i>
+    <h3>Back</h3>
+  </a>
   <button
     (click)="showPayment()"
     [disabled]="seatSelected.length === 0"
@@ -45,13 +46,13 @@
     </div>
   </div>
   <div class="grid flex justify-content-center">
-    <div class="col-6 flex flex-wrap w-full h-full gap-2">
+    <div class="col-6 flex flex-wrap w-full h-full gap-2 justify-content-center">
       @for (seat of seat$ | async; track seat; let index = $index) {
         <button
           [ngClass]="{
             'hover:bg-secondary border-secondary hover:text-white cursor-pointer':
               seat.isAvailable === 'TRUE',
-            'bg-gray-300 pointer-events-none ': seat.isAvailable === 'FALSE',
+            'bg-gray-300 pointer-events-none': seat.isAvailable === 'FALSE',
             'bg-secondary text-white': seatSelected.includes(seat.seatId)
           }"
           (click)="onSeatSelect(seat.seatId)"
@@ -60,7 +61,7 @@
           {{ index + 1 }}
         </button>
       }
-      <div class="mx-auto flex flex-column">
+      <div class="mx-auto flex flex-column text-white">
         <svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">
           <defs>
             <filter id="balanced-shadow" x="0" y="0" width="150%" height="150%">
@@ -99,3 +100,37 @@
     </div>
   </div>
 </div>
+
+<p-dialog
+  header="Payment Confirmation"
+  [(visible)]="isShowPaymentConfirm"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex mb-4">
+    <strong class="w-10rem">Show Time ID</strong>
+    <span>{{ showTimeId }}</span>
+  </div>
+  <div class="flex mb-4">
+    <strong class="w-10rem">Seat ID:</strong>
+    <span>{{ seatSelected.join(', ') }}</span>
+  </div>
+  <div class="flex mb-4">
+    <strong class="w-10rem">Total Price:</strong>
+    <span>{{ totalPrice }} VND</span>
+  </div>
+  <div class="mb-3">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg"
+      alt=""
+      style="width: 10rem"
+    />
+    <br />
+    <small class="text-yellow-600"
+      >Note: Please transfer <b>{{ totalPrice }} VND</b> before click on Book button</small
+    >
+  </div>
+  <button class="btn-secondary px-5" (click)="onBookClick()">Book</button>
+</p-dialog>
